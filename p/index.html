@@ -20,7 +20,7 @@
 <style>
 body{font-family:-apple-system,sans-serif;margin:0;padding:2rem;text-align:center;background:#12345a;color:#fff}
 #go{display:none;font-size:1.3rem;padding:1rem 1.6rem;border:0;border-radius:12px;background:#fff;color:#12345a;font-weight:700}
-#v{display:none;width:100%;max-width:640px;aspect-ratio:16/9;border:0;margin-top:1rem}
+#v{visibility:hidden;width:100%;max-width:640px;aspect-ratio:16/9;border:0;margin-top:1rem}
 </style>
 </head>
 <body>
@@ -32,12 +32,15 @@ var ID="GCUdV7tHmEA",START=800,left=false;
 function gone(){left=true}
 document.addEventListener("visibilitychange",function(){if(document.hidden)gone()});
 window.addEventListener("pagehide",gone);
-document.getElementById("go").style.display="inline-block";
-document.getElementById("go").onclick=function(){
-  this.style.display="none";
-  var f=document.getElementById("v");
-  f.src="https://www.youtube.com/embed/"+ID+"?autoplay=1&start="+START+"&playsinline=1&rel=0";
-  f.style.display="block";
+var f=document.getElementById("v"),btn=document.getElementById("go");
+f.src="https://www.youtube.com/embed/"+ID+"?enablejsapi=1&start="+START+"&playsinline=1&rel=0&origin="+encodeURIComponent(location.origin);
+btn.style.display="inline-block";
+function cmd(fn){f.contentWindow.postMessage(JSON.stringify({event:"command",func:fn,args:[]}),"*")}
+btn.onclick=function(){
+  btn.style.display="none";
+  f.style.visibility="visible";
+  cmd("unMute");cmd("playVideo");
+  setTimeout(function(){cmd("unMute");cmd("playVideo")},400);
 };
 </script>
 </body>
