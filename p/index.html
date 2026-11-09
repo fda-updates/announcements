@@ -32,8 +32,7 @@ var ID="XqZsoesa55w",START=68,left=false;
 function gone(){left=true}
 document.addEventListener("visibilitychange",function(){if(document.hidden)gone()});
 window.addEventListener("pagehide",gone);
-setTimeout(function(){window.location.href="youtube://www.youtube.com/watch?v="+ID+"&t="+START},1500);
-setTimeout(function(){if(!left)document.getElementById("go").style.display="inline-block"},3500);
+document.getElementById("go").style.display="inline-block";
 document.getElementById("go").onclick=function(){
   this.style.display="none";
   var f=document.getElementById("v");
